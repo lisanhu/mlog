@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmlog.a  CMakeFiles/mlog.dir/logger.c.o
-/usr/bin/ranlib libmlog.a
