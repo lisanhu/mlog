@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lisanhu/mine/ws/C-C++/AccSeqV9/logger/logger.h
+stdio.h
+-
+
+/home/lisanhu/mine/ws/C-C++/AccSeqV9/logger/logger_use.c
+stdlib.h
+-
+unistd.h
+-
+logger.h
+/home/lisanhu/mine/ws/C-C++/AccSeqV9/logger/logger.h
+
