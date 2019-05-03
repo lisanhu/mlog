@@ -5,7 +5,12 @@
 #ifndef ACCSEQ_LOGGER_H
 #define ACCSEQ_LOGGER_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
+#include <time.h>
 
 typedef struct timespec ts_t;
 typedef struct mlog mlog;
@@ -24,5 +29,9 @@ struct mlog {
 
 
 mlog new_mlogger(ts_t *start);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif //ACCSEQ_LOGGER_H
