@@ -30,6 +30,7 @@ mlog new_mlogger(ts_t *start) {
     logger.mprint = mprint;
     logger.mvlog = mvlog;
     logger.melog = melog;
+    logger.b = new_banner();
     return logger;
 }
 
@@ -55,10 +56,10 @@ static ts_t vmprint(mlog *tthis, int l, const char *fmt, va_list args) {
     const int LOG_BUF_SZ = 1024;
     switch (l) {
         case AS_LOG_VERBOSE:
-            ltext = "Verbose";
+            ltext = tthis->b.texts[l];
             break;
         case AS_LOG_ERROR:
-            ltext = "Error";
+            ltext = tthis->b.texts[l];
             break;
         default:
             ltext = "UNKNOWN";
@@ -72,7 +73,7 @@ static ts_t vmprint(mlog *tthis, int l, const char *fmt, va_list args) {
 
     vsprintf(text, fmt, args);
 
-    fprintf(tthis->stream, "[ %-7s %8.2lf ] %s\n", ltext, elapsed, text);
+    fprintf(tthis->stream, "[ %-7s %11.2lf ] %s\n", ltext, elapsed, text);
     return tp;
 }
 
@@ -87,6 +88,15 @@ ts_t melog(mlog *tthis, const char *fmt, ...) {
 static inline double time_elapse(struct timespec start) {
     struct timespec now;
     clock_gettime(CLOCK_MONOTONIC, &now);
-    return now.tv_sec - start.tv_sec +
-           (now.tv_nsec - start.tv_nsec) / 1000000000.;
+    // return now.tv_sec - start.tv_sec +
+        //    (now.tv_nsec - start.tv_nsec) / 1000000000.;
+    return (now.tv_sec - start.tv_sec) * 1000 + 
+            (now.tv_nsec - start.tv_nsec) / 1000000.;
+}
+
+banner new_banner() {
+    banner b;
+    b.texts[0] = "Verbose";
+    b.texts[1] = "Error";
+    return b;
 }
